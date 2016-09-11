@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dragons of Mugloar</title>
+    <link rel="stylesheet" href="css\main.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="js\bootstrap-3.3.7-dist\css\bootstrap.css">
+    <meta property="og:image" content="http://www.dragonsofmugloar.com/dragons-og-squared.jpg" />
+    <meta property="og:url" content="http://www.dragonsofmugloar.com/" />
+    <meta property="og:title" content="Dragons of Mugloar" />
+    <meta property="og:description" content="Try your hand in this amazing RESTful game with dragons, knights, and all the other amazing things, to see if you are good enough to work for us as a developer!" />
+    <link rel="icon" type="image/png" href="http://www.dragonsofmugloar.com/favicon.png">
+    <script src="js\jquery-3.1.0.min.js"></script>
+    <script src="js\bootstrap-3.3.7-dist\js\bootstrap.js"></script>
+    <script src="js\engine.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 text-center">
+                <img src="http://www.dragonsofmugloar.com/logo.png" class="img-responsive center-block" alt="Dragons of Mugloar">
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 content">
+                <div class="row">
+                    <div class="text-center">
+                        <h2 class="text-center">Select game options</h2>
+                    </div>
+                </div>
+                <!--Game options-->
+                <div class="row options">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-4 text-center">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="How many battles do we fight?" id="count">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-success" type="button" onclick="toTheBattle()">To the battle!</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <div class="btn-group pull-left">
+                            <button type="button" class="btn btn-default" id="choice_one">Fetch weather</button>
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" onclick="switchChoice()" id="choice_two">Don't fetch weather</a></li>
+                            </ul>
+                        </div>  
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="text-center">
+                        <div class="col-md-6 progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" id="win_rate">
+                                WIN RATE 0%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>    
+        </div>
+        <div class="row cap">
+            <div class="col-md-12"></div>    
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 content">            
+                <div class="row">
+                    <div class="text-center">
+                        <h2 class="text-center">Game results log</h2>
+                    </div>
+                </div>
+                <!--Results will be loged here-->
+                <div class="row">
+                    <div class="text-center" id="log">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>             
+        </div>
+        <div class="row cap">
+            <div class="col-md-12"></div>    
+        </div>
+        <div class="row copyright">
+            <div class="col-sm-12 text-center">
+                Copyright &copy; 2016 Bigbank AS. Drawings by Nele Sergejeva, editing Jaan Pullerits.
+                <br>
+                Background photos Jaan Pullerits, Mike Pellinni/Shutterstock, Rocksweeper/Shutterstock. All rights reserved.
+            </div>
+        </div>                                      
+    </div>    
+</body>
+</html>
