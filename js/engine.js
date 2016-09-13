@@ -45,102 +45,37 @@ function createTheGame(fetch_weather){
 };
 //MAKE EPIC DRAGON
 function makeEpicDragon(game){
-	var available_points = 20;	
-	var scaleThickness = 0;
-	var clawSharpness = 0;
-	var wingStrength = 0;
-	var fireBreath = 0;
-	var max = Math.max(game.attack, game.armor, game.agility, game.endurance);
-	var min = Math.min(game.attack, game.armor, game.agility, game.endurance);
-	if (game.attack == max){
-		scaleThickness = game.attack + (10 - game.attack);
-		available_points = available_points - scaleThickness;
-		if (game.armor == 0){
-			clawSharpness = 0;
-		}else{
-			clawSharpness = game.armor - 1;
+	var available_points = 20;
+	var knight = [[game.attack,0],[game.armor,1],[game.agility,2],[game.endurance,3]];
+	var dragon = [0,0,0,0];
+	var dragon_JSON = '';
+	knight.sort(function(a,b){return a[0]<b[0];});
+	if (game.weather_code == 'NMR' || game.weather_code == 'NONE' || game.weather_code == 'FUNDEFINEDG'){
+		for (var i = 0; i<knight.length; i++){
+			if(i == 0){
+				dragon[knight[i][1]] = knight[i][0]+2;
+				available_points = available_points - dragon[knight[i][1]];
+			}else if (i == 3){
+				dragon[knight[i][1]] = available_points;
+			}else{
+				dragon[knight[i][1]] = knight[i][0]-1;
+				available_points = available_points - dragon[knight[i][1]];					
+			}
 		}
-		available_points = available_points - clawSharpness;
-		if (game.agility == 0){
-			wingStrength = 0;
-		}else{
-			wingStrength = game.agility - 1;
-		}
-		available_points = available_points - wingStrength;
-		fireBreath = available_points;
-	}else if (game.armor == max){
-		if (game.attack == 0){
-			scaleThickness = 0;
-		}else{
-			scaleThickness = game.attack - 1;
-		}
-		available_points = available_points - scaleThickness;
-		clawSharpness = game.armor + (10 - game.armor);
-		available_points = available_points - clawSharpness;
-		if (game.agility == 0){
-			wingStrength = 0;
-		}else{
-			wingStrength = game.agility - 1;
-		}
-		available_points = available_points - wingStrength;
-		fireBreath = available_points;
-	}else if (game.agility == max){
-		if (game.attack == 0){
-			scaleThickness = 0;
-		}else{
-			scaleThickness = game.attack - 1;
-		}
-		available_points = available_points - scaleThickness;
-		if (game.armor == 0){
-			clawSharpness = 0;
-		}else{
-			clawSharpness = game.armor - 1;
-		}
-		available_points = available_points - clawSharpness;
-		wingStrength = game.agility + (10 - game.agility);
-		available_points = available_points - wingStrength;
-		fireBreath = available_points;
-	}else if (game.endurance == max){	
-		if (game.attack == 0){
-			scaleThickness = 0;
-		}else{
-			scaleThickness = game.attack - 1;
-		}
-		available_points = available_points - scaleThickness;
-		if (game.armor == 0){
-			clawSharpness = 0;
-		}else{
-			clawSharpness = game.armor - 1;
-		}
-		available_points = available_points - clawSharpness;
-		fireBreath = game.endurance + (10 - game.endurance);
-		available_points = available_points - fireBreath
-		wingStrength = available_points;
-	}	
-	var dragon;
-	if (game.weather_code == 'SRO'){
-		dragon = '{"dragon": 0}';
-	} else if (game.weather_code == 'T E'){
-		dragon = '{"dragon": {"scaleThickness": 5,"clawSharpness": 5,"wingStrength": 5,"fireBreath": 5}}'
-	} else if (game.weather_code == 'HVA'){		
-		available_points = 20;
-		fireBreath = 0;	
-		clawSharpness = 10;
-		available_points = available_points - clawSharpness;
-		if (game.attack == 0){
-			scaleThickness = 0;
-		}else{
-			scaleThickness = game.attack - 1;
-		}
-		available_points = available_points - scaleThickness;
-		wingStrength = available_points;
-		dragon = '{"dragon": {"scaleThickness": '+ scaleThickness +',"clawSharpness": '+ clawSharpness +',"wingStrength": '+ wingStrength +',"fireBreath": '+ fireBreath +'}}';
-	} 
-	else {
-		dragon = '{"dragon": {"scaleThickness": '+ scaleThickness +',"clawSharpness": '+ clawSharpness +',"wingStrength": '+ wingStrength +',"fireBreath": '+ fireBreath +'}}';
+		dragon_JSON = createJSONObj(dragon);
+	}else if (game.weather_code == 'HVA'){
+		dragon=[5,10,5,0];
+		dragon_JSON = createJSONObj(dragon);
+	}else if (game.weather_code == 'T E'){
+		dragon = [5,5,5,5];
+		dragon_JSON = createJSONObj(dragon);
 	}
-	theBattle(dragon,game);
+	theBattle(dragon_JSON,game);
 };
+function createJSONObj(dragon){
+	var dragon_JSON = '{"dragon": {"scaleThickness": '+ dragon[0] +',"clawSharpness": '+ dragon[1] +',"wingStrength": '+ dragon[2] +',"fireBreath": '+ dragon[3] +'}}';
+	return dragon_JSON;
+}
 //BATTLE
 function theBattle(dragon,game){
 	$.ajax({	
